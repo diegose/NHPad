@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using LINQPad.Extensibility.DataContext;
 
 namespace NHPad
@@ -8,27 +10,29 @@ namespace NHPad
     {
         public override string GetConnectionDescription(IConnectionInfo cxInfo)
         {
-            throw new NotImplementedException();
+            return cxInfo.DisplayName;
         }
 
         public override bool ShowConnectionDialog(IConnectionInfo cxInfo, bool isNewConnection)
         {
-            throw new NotImplementedException();
+            cxInfo.CustomTypeInfo.CustomTypeName = typeof(NHibernateContext).FullName;
+            cxInfo.CustomTypeInfo.CustomAssemblyPath = Assembly.GetExecutingAssembly().Location;
+            return true;
         }
 
         public override string Name
         {
-            get { throw new NotImplementedException(); }
+            get { return "NHibernate Driver"; }
         }
 
         public override string Author
         {
-            get { throw new NotImplementedException(); }
+            get { return "Diego Mijelshon"; }
         }
 
         public override List<ExplorerItem> GetSchema(IConnectionInfo cxInfo, Type customType)
         {
-            throw new NotImplementedException();
+            return new List<ExplorerItem>();
         }
     }
 }

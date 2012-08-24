@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B36366
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHPad.Testbed", "NHPad.Testbed\NHPad.Testbed.csproj", "{6B2CCD1B-B7BD-48ED-8277-734F722C22E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{13563F3E-415C-41EA-B3DF-92D9E8128F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13563F3E-415C-41EA-B3DF-92D9E8128F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13563F3E-415C-41EA-B3DF-92D9E8128F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B2CCD1B-B7BD-48ED-8277-734F722C22E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B2CCD1B-B7BD-48ED-8277-734F722C22E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B2CCD1B-B7BD-48ED-8277-734F722C22E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B2CCD1B-B7BD-48ED-8277-734F722C22E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

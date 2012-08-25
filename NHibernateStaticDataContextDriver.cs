@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
@@ -84,7 +83,7 @@ namespace NHPad
 
         static Assembly GetClientAssembly(IConnectionInfo cxInfo)
         {
-            return Assembly.LoadFrom((string)cxInfo.DriverData.Element("ClientAssembly"));
+            return LoadAssemblySafely((string)cxInfo.DriverData.Element("ClientAssembly"));
         }
     }
 }

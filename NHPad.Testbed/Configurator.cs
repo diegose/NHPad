@@ -23,6 +23,7 @@ namespace NHPad.Testbed
         static void Map(ConventionModelMapper mapper)
         {
             mapper.Class<Blog>(cm => { });
+            mapper.Class<Post>(cm => { });
         }
     }
 }

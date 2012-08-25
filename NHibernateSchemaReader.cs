@@ -23,6 +23,9 @@ namespace NHPad
                 var manyToOne = type as ManyToOneType;
                 if (manyToOne != null)
                     property.HyperlinkTarget = items.Single(x => Equals(x.Tag, type.ReturnedClass));
+                if (type.IsCollectionType && type.ReturnedClass.IsGenericType)
+                    property.HyperlinkTarget =
+                        items.Single(x => Equals(x.Tag, type.ReturnedClass.GetGenericArguments().Single()));
             }
             return items;
         }

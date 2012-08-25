@@ -34,14 +34,7 @@ namespace NHPad
 
         public override List<ExplorerItem> GetSchema(IConnectionInfo cxInfo, Type customType)
         {
-            return GetSessionFactory(cxInfo).GetAllClassMetadata()
-                .Select(x => new ExplorerItem(x.Value.EntityName, ExplorerItemKind.QueryableObject, ExplorerIcon.Table)
-                                 {
-                                     Children = x.Value.PropertyNames.Select(
-                                         p => new ExplorerItem(p, ExplorerItemKind.Property, ExplorerIcon.Column))
-                                         .ToList()
-                                 })
-                .ToList();
+            return NHibernateSchemaReader.GetSchema(GetSessionFactory(cxInfo));
         }
 
         public override IEnumerable<string> GetNamespacesToAdd(IConnectionInfo cxInfo)

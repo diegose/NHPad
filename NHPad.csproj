@@ -66,6 +66,7 @@
       <DependentUpon>ConnectionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="NHibernateContext.cs" />
+    <Compile Include="NHibernateSchemaReader.cs" />
     <Compile Include="NHibernateStaticDataContextDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

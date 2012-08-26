@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHPad", "NHPad.csproj", "{13563F3E-415C-41EA-B3DF-92D9E8128F3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHPad", "NHPad\NHPad.csproj", "{13563F3E-415C-41EA-B3DF-92D9E8128F3F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B3636608-F7E4-4256-B6AA-19B9A744DB2F}"
 	ProjectSection(SolutionItems) = preProject

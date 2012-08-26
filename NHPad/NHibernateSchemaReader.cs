@@ -44,8 +44,12 @@ namespace NHPad
 
         private static ExplorerItem GetPropertyItem(ISessionFactory sessionFactory, IClassMetadata classMetadata, string propertyName)
         {
-            return new ExplorerItem(string.Format("{0}", propertyName),
-                                    GetKind(classMetadata, propertyName),
+            var kind = GetKind(classMetadata, propertyName);
+            var propertyType = classMetadata.GetPropertyType(propertyName);
+            return new ExplorerItem(kind == ExplorerItemKind.Property
+                                        ? string.Format("{0} ({1})", propertyName, propertyType.ReturnedClass.Name)
+                                        : propertyName,
+                                    kind,
                                     GetIcon(sessionFactory, classMetadata, propertyName))
                        {
                            Tag = classMetadata.GetPropertyType(propertyName)

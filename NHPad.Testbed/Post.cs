@@ -7,5 +7,6 @@ namespace NHPad.Testbed
     {
         public virtual Blog Blog { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
+        public virtual int Views { get; set; }
     }
 }

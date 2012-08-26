@@ -14,7 +14,8 @@ namespace NHPad
             var items = sessionFactory.GetAllClassMetadata().Values
                 .Select(x => new ExplorerItem(x.EntityName, ExplorerItemKind.QueryableObject, ExplorerIcon.Table)
                                  {
-                                     Children = x.PropertyNames.Select(p => GetPropertyItem(x, p)).ToList(),
+                                     Children = GetId(x)
+                                         .Concat(x.PropertyNames.Select(p => GetPropertyItem(x, p))).ToList(),
                                      Tag = x.GetMappedClass(EntityMode.Poco)
                                  }).ToList();
             foreach (var property in items.SelectMany(x => x.Children))
@@ -28,6 +29,16 @@ namespace NHPad
                         items.Single(x => Equals(x.Tag, type.ReturnedClass.GetGenericArguments().Single()));
             }
             return items;
+        }
+
+        private static IEnumerable<ExplorerItem> GetId(IClassMetadata classMetadata)
+        {
+            var propertyName = classMetadata.IdentifierPropertyName;
+            if (propertyName != null)
+                yield return new ExplorerItem(propertyName, ExplorerItemKind.Property, ExplorerIcon.Key)
+                                 {
+                                     Tag = classMetadata.GetPropertyType(propertyName)
+                                 };
         }
 
         private static ExplorerItem GetPropertyItem(IClassMetadata classMetadata, string propertyName)

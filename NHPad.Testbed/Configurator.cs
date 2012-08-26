@@ -23,7 +23,8 @@ namespace NHPad.Testbed
         static void Map(ConventionModelMapper mapper)
         {
             mapper.Class<Blog>(cm => { });
-            mapper.Class<Post>(cm => { });
+            mapper.Class<Post>(cm => cm.Bag(x => x.Categories, bpm => { }, cer => cer.ManyToMany()));
+            mapper.Class<Category>(cm => cm.Bag(x => x.Posts, bpm => bpm.Inverse(true), cer => cer.ManyToMany()));
         }
     }
 }

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category.cs" />
     <Compile Include="Configurator.cs" />
     <Compile Include="Blog.cs" />
     <Compile Include="Post.cs" />

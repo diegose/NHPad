@@ -3,6 +3,7 @@ using System.Linq;
 using LINQPad.Extensibility.DataContext;
 using NHibernate;
 using NHibernate.Metadata;
+using NHibernate.Persister.Collection;
 using NHibernate.Type;
 
 namespace NHPad
@@ -15,7 +16,7 @@ namespace NHPad
                 .Select(x => new ExplorerItem(x.EntityName, ExplorerItemKind.QueryableObject, ExplorerIcon.Table)
                                  {
                                      Children = GetId(x)
-                                         .Concat(x.PropertyNames.Select(p => GetPropertyItem(x, p))).ToList(),
+                                         .Concat(x.PropertyNames.Select(p => GetPropertyItem(sessionFactory, x, p))).ToList(),
                                      Tag = x.GetMappedClass(EntityMode.Poco)
                                  }).ToList();
             foreach (var property in items.SelectMany(x => x.Children))
@@ -41,11 +42,11 @@ namespace NHPad
                                  };
         }
 
-        private static ExplorerItem GetPropertyItem(IClassMetadata classMetadata, string propertyName)
+        private static ExplorerItem GetPropertyItem(ISessionFactory sessionFactory, IClassMetadata classMetadata, string propertyName)
         {
             return new ExplorerItem(string.Format("{0}", propertyName),
                                     GetKind(classMetadata, propertyName),
-                                    GetIcon(classMetadata, propertyName))
+                                    GetIcon(sessionFactory, classMetadata, propertyName))
                        {
                            Tag = classMetadata.GetPropertyType(propertyName)
                        };
@@ -61,11 +62,15 @@ namespace NHPad
                              : ExplorerItemKind.Property;
         }
 
-        static ExplorerIcon GetIcon(IClassMetadata classMetadata, string propertyName)
+        static ExplorerIcon GetIcon(ISessionFactory sessionFactory, IClassMetadata classMetadata, string propertyName)
         {
             var propertyType = classMetadata.GetPropertyType(propertyName);
             return propertyType.IsCollectionType
-                       ? ExplorerIcon.OneToMany
+                       ? ((ICollectionPersister)sessionFactory.GetCollectionMetadata(
+                           string.Format("{0}.{1}", classMetadata.GetMappedClass(EntityMode.Poco), propertyName)))
+                             .IsManyToMany
+                             ? ExplorerIcon.ManyToMany
+                             : ExplorerIcon.OneToMany
                        : propertyType.IsAssociationType
                              ? ExplorerIcon.ManyToOne
                              : ExplorerIcon.Column;

@@ -14,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">.\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <MSBuildCommunityTasksPath>$(SolutionDir)\Build</MSBuildCommunityTasksPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,11 +88,17 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Import Project="$(SolutionDir)\Build\MSBuild.Community.Tasks.targets" />
+  <Target Name="BuildDriver" DependsOnTargets="Build">
   </Target>
   <Target Name="AfterBuild">
+    <ItemGroup>
+        <ZipFiles Include="$(OutputPath)*.*"/>
+    </ItemGroup>
+    <MakeDir Directories="driver\$(Configuration)" Condition="!Exists('driver\$(Configuration)')" />
+    <Zip Files="@(ZipFiles)"
+         WorkingDirectory="$(OutputPath)$(Configuration)" 
+         ZipFileName="driver\$(Configuration)\NHPad-$(Version).lpx"
+         ZipLevel="9" /> 
   </Target>
-  -->
 </Project>
